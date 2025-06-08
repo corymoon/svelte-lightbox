@@ -1,15 +1,16 @@
+import type { SvelteComponent } from 'svelte';
 type ImagePreset = '' | 'fullscreen' | 'scroll';
 type GalleryArrowCharacter = '' | 'hide' | 'loop';
 interface LightboxCustomization {
-    closeButtonProps: HTMLButtonElement;
+    closeButtonProps?: Record<string, any>;
     lightboxFooterProps?: {
-        component?: typeof import('svelte').SvelteComponent;
+        component?: typeof SvelteComponent;
         [key: string]: any;
     };
-    lightboxHeaderProps: HTMLDivElement;
-    coverProps: HTMLDivElement;
-    lightboxProps: HTMLDivElement;
-    thumbnailProps: HTMLDivElement;
+    lightboxHeaderProps?: Record<string, any>;
+    coverProps?: Record<string, any>;
+    lightboxProps?: Record<string, any>;
+    thumbnailProps?: Record<string, any>;
 }
 interface GalleryImage {
     id: number;
