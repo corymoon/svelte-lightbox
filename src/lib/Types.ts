@@ -4,7 +4,10 @@ type GalleryArrowCharacter = '' | 'hide' | 'loop'
 
 interface LightboxCustomization {
     closeButtonProps: HTMLButtonElement,
-    lightboxFooterProps: HTMLDivElement,
+    lightboxFooterProps?: {
+        component?: typeof import('svelte').SvelteComponent;
+        [key: string]: any;
+    },
     lightboxHeaderProps: HTMLDivElement,
     coverProps: HTMLDivElement,
     lightboxProps: HTMLDivElement,
