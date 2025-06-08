@@ -2,5 +2,5 @@ node_modules
 .idea
 .svelte-kit
 package
-dist
+# dist
 .vercel
