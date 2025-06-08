@@ -118,6 +118,9 @@
         activeImage: $activeImageStore,
     };
 
+    $: activeImageCustomization =
+        images[$activeImageStore]?.customization || customization;
+
     onMount(() => {
         const defaultOverflow = document.body.style.overflow;
         toggleScroll = () => {
@@ -174,7 +177,7 @@
                     title={activeImageTitle}
                     description={activeImageDescription}
                     {gallery}
-                    {...customization.lightboxFooterProps || {}}
+                    {...activeImageCustomization?.lightboxFooterProps || {}}
                 />
             </Modal>
         </ModalCover>

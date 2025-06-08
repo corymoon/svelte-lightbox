@@ -1,6 +1,7 @@
 type ImagePreset = '' | 'fullscreen' | 'scroll'
 type GalleryArrowCharacter = '' | 'hide' | 'loop'
 
+
 interface LightboxCustomization {
     closeButtonProps: HTMLButtonElement,
     lightboxFooterProps: HTMLDivElement,
@@ -12,7 +13,9 @@ interface LightboxCustomization {
 interface GalleryImage {
     id: number,
     title: string,
-    description: string
+    description: string,
+    customization?: Partial<LightboxCustomization>
+
 }
 interface GalleryState {
     imageCount: number,
