@@ -1,16 +1,16 @@
-<script lang="ts">import { onMount, setContext } from 'svelte';
-import { writable } from 'svelte/store';
-import GalleryController from './GalleryController.svelte';
-import BodyChild from '../Modal/BodyChild.svelte';
-import Header from '../Modal/LightboxHeader.svelte';
-import Body from '../Modal/LightboxBody.svelte';
-import Footer from '../Modal/LightboxFooter.svelte';
-import ModalCover from '../Modal/ModalCover.svelte';
-import Modal from '../Modal/Modal.svelte';
+<script lang="ts">import { onMount, setContext } from "svelte";
+import { writable } from "svelte/store";
+import GalleryController from "./GalleryController.svelte";
+import BodyChild from "../Modal/BodyChild.svelte";
+import Header from "../Modal/LightboxHeader.svelte";
+import Body from "../Modal/LightboxBody.svelte";
+import Footer from "../Modal/LightboxFooter.svelte";
+import ModalCover from "../Modal/ModalCover.svelte";
+import Modal from "../Modal/Modal.svelte";
 // Lightbox props --------------------------------------------------------------------------------------------------
-export let title = '';
-export let description = '';
-export let imagePreset = '';
+export let title = "";
+export let description = "";
+export let imagePreset = "";
 export let customization = {};
 export let transitionDuration = 300;
 export let keepBodyScroll = false;
@@ -22,9 +22,9 @@ export let isVisible = false;
 // Gallery props ---------------------------------------------------------------------------------------------------
 export let activeImage = 0;
 export let arrowsConfig = {
-    color: 'black',
-    character: '',
-    enableKeyboardControl: true
+    color: "black",
+    character: "",
+    enableKeyboardControl: true,
 };
 let modalClicked = false;
 let images = [];
@@ -66,34 +66,35 @@ export const programmaticController = {
     toggle,
     open,
     close,
-    openImage
+    openImage,
 };
-setContext('activeImage', activeImageStore);
-setContext('imageCounter', (image) => {
+setContext("activeImage", activeImageStore);
+setContext("imageCounter", (image) => {
     image.id = images.length;
-    images = [
-        ...images,
-        image
-    ];
+    images = [...images, image];
     $imageCountStore = images.length;
     return $imageCountStore - 1;
 });
-setContext('thumbnailCounter', () => {
+setContext("thumbnailCounter", () => {
     return thumbnailCount++;
 });
-setContext('openImage', openImage);
+setContext("openImage", openImage);
 $: activeImageStore.set(activeImage);
 $: arrowsConfigStore.set(arrowsConfig);
 $: keepOrEmptyImageList(isVisible);
-$: activeImageTitle = images[$activeImageStore]?.title || title || '';
-$: activeImageDescription = images[$activeImageStore]?.description || description || '';
-$: gallery = { imageCount: $imageCountStore, activeImage: $activeImageStore };
+$: activeImageTitle = images[$activeImageStore]?.title || title || "";
+$: activeImageDescription =
+    images[$activeImageStore]?.description || description || "";
+$: gallery = {
+    imageCount: $imageCountStore,
+    activeImage: $activeImageStore,
+};
 onMount(() => {
     const defaultOverflow = document.body.style.overflow;
     toggleScroll = () => {
         if (!keepBodyScroll) {
             if (isVisible) {
-                document.body.style.overflow = 'hidden';
+                document.body.style.overflow = "hidden";
             }
             else {
                 document.body.style.overflow = defaultOverflow;
@@ -104,23 +105,49 @@ onMount(() => {
 </script>
 
 {#if $$slots.thumbnail}
-    <slot name="thumbnail"/>
+    <slot name="thumbnail" />
 {/if}
 
 {#if isVisible}
     <BodyChild>
-        <ModalCover {transitionDuration} {...(customization.coverProps || {})} on:click={coverClick}>
-            <Modal {imagePreset} {transitionDuration} {...(customization.lightboxProps || {})} on:click={modalClick}>
-                <Header {imagePreset} {showCloseButton} {enableEscapeToClose} closeButtonProps={customization.closeButtonProps}
-                        {...(customization.lightboxHeaderProps || {})} on:close={close}/>
+        <ModalCover
+            {transitionDuration}
+            {...customization.coverProps || {}}
+            on:click={coverClick}
+        >
+            <Modal
+                {imagePreset}
+                {transitionDuration}
+                {...customization.lightboxProps || {}}
+                on:click={modalClick}
+            >
+                <Header
+                    {imagePreset}
+                    {showCloseButton}
+                    {enableEscapeToClose}
+                    closeButtonProps={customization.closeButtonProps}
+                    {...customization.lightboxHeaderProps || {}}
+                    on:close={close}
+                />
 
-                    <Body {imagePreset} {enableImageExpand}>
-                        <GalleryController {imagePreset} {imageCountStore} {activeImageStore} {arrowsConfigStore}>
-                            <slot/>
-                        </GalleryController>
-                    </Body>
+                <Body {imagePreset} {enableImageExpand}>
+                    <GalleryController
+                        {imagePreset}
+                        {imageCountStore}
+                        {activeImageStore}
+                        {arrowsConfigStore}
+                    >
+                        <slot />
+                    </GalleryController>
+                </Body>
 
-                <Footer {imagePreset} title={activeImageTitle} description={activeImageDescription} {gallery} {...(customization.lightboxFooterProps || {})}/>
+                <Footer
+                    {imagePreset}
+                    title={activeImageTitle}
+                    description={activeImageDescription}
+                    {gallery}
+                    {...customization.lightboxFooterProps || {}}
+                />
             </Modal>
         </ModalCover>
     </BodyChild>

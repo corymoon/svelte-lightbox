@@ -1,9 +1,11 @@
 import { SvelteComponentTyped } from "svelte";
+import type { LightboxCustomization } from "../Types";
 declare const __propDef: {
     props: {
         [x: string]: any;
         title?: string | undefined;
         description?: string | undefined;
+        customization?: Partial<LightboxCustomization> | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

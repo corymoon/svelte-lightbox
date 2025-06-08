@@ -1,5 +1,5 @@
 import { SvelteComponentTyped } from "svelte";
-import type { ImagePreset, LightboxCustomization, GalleryArrowsConfig } from '../Types';
+import type { ImagePreset, LightboxCustomization, GalleryArrowsConfig } from "../Types";
 declare const __propDef: {
     props: {
         title?: string | undefined;
