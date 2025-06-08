@@ -1,4 +1,5 @@
-import type { SvelteComponent } from 'svelte';
+import type { SvelteComponentTyped } from 'svelte';
+
 
 type ImagePreset = '' | 'fullscreen' | 'scroll'
 type GalleryArrowCharacter = '' | 'hide' | 'loop'
@@ -7,9 +8,9 @@ type GalleryArrowCharacter = '' | 'hide' | 'loop'
 interface LightboxCustomization {
     closeButtonProps?: Record<string, any>;
     lightboxFooterProps?: {
-        component?: typeof SvelteComponent;
+        component?: new (...args: any[]) => SvelteComponentTyped<any>;
         [key: string]: any;
-    };
+    },
     lightboxHeaderProps?: Record<string, any>;
     coverProps?: Record<string, any>;
     lightboxProps?: Record<string, any>;
