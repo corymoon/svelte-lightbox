@@ -143,13 +143,23 @@ onMount(() => {
                     </GalleryController>
                 </Body>
 
-                <Footer
-                    {imagePreset}
-                    title={activeImageTitle}
-                    description={activeImageDescription}
-                    {gallery}
-                    {...activeImageCustomization?.lightboxFooterProps || {}}
-                />
+                {#if customization.lightboxFooterProps?.component}
+                    <svelte:component
+                        this={customization.lightboxFooterProps.component}
+                        {imagePreset}
+                        {gallery}
+                        title={activeImageTitle}
+                        description={activeImageDescription}
+                        {...customization.lightboxFooterProps || {}}
+                    />
+                {:else}
+                    <Footer
+                        {imagePreset}
+                        title={activeImageTitle}
+                        description={activeImageDescription}
+                        {gallery}
+                    />
+                {/if}
             </Modal>
         </ModalCover>
     </BodyChild>
